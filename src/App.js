@@ -46,9 +46,12 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import SimpleLineChart from './SimpleLineChart';
-import SimpleTable from './SimpleTable';
-import UserConsumptionCard from './UserConsumptionCard';
 import UserGridList from './UserGridList';
+import axios from 'axios';
+
+import userData from './userData';
+
+const API_URL = "https://enigmatic-dawn-85841.herokuapp.com/api/bottles";
 
 const drawerWidth = 240;
 
@@ -130,8 +133,23 @@ const styles = theme => ({
 });
 
 class Dashboard extends React.Component {
-  state = {
-    open: false,
+  constructor() {
+    super();
+    this.state = {
+      open: false,
+      user: {
+        owner: {
+          username: '',
+        },
+      },
+      userData: [],
+    };
+    this.getData();
+  }
+
+  getData = () => {
+    axios.get(API_URL)
+      .then(response => console.log(response));
   };
 
   handleDrawerOpen = () => {
@@ -141,9 +159,17 @@ class Dashboard extends React.Component {
   handleDrawerClose = () => {
     this.setState({ open: false });
   };
-
+  
   handleSelectCharts = (data) => {
     console.log(data);
+    // let drinks = [];
+    // let total = 0.0;
+    // data.drinks.map(drink => {
+    //   total += drink.volume;
+    //   drinks.push({ createdDate: drink.createdDate, volume: drink.volume, total: total })
+    // });
+    // data.drinks = drinks;
+    this.setState({ user: data });
   };
 
   render() {
@@ -205,10 +231,10 @@ class Dashboard extends React.Component {
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
             <Typography variant="h4" gutterBottom component="h2">
-              Drinking Consumption
+              Drinking Consumption {this.state.user.owner.username && "for "+this.state.user.owner.username}
             </Typography>
             <Typography component="div" className={classes.chartContainer}>
-              <SimpleLineChart />
+              <SimpleLineChart data={this.state.user.drinks}/>
             </Typography>
             {/* <Typography variant="h4" gutterBottom component="h2">
               Products
@@ -221,7 +247,7 @@ class Dashboard extends React.Component {
               <UserConsumptionCard name="Lois Griffin" image="images/lois.png" age="45"/>
             </div> */}
             <div>
-              <UserGridList handleClick={this.handleSelectCharts}/>
+              <UserGridList handleClick={this.handleSelectCharts} data={userData}/>
             </div>
           </main>
         </div>
