@@ -120,7 +120,7 @@ class UserGridList extends React.Component {
           {this.props.data.map(user => (
             // <GridListTile key={user.owner.id} style={this.state.selected ? (this.state.selectedUser.owner.username === user.owner.username ? {borderStyle: "solid", borderColor: "green"} : {borderStyle: "none", borderColor: "none"}) : {borderStyle: "none", borderColor: "none"}}>
             //   <img src={user.owner.img} alt={user.owner.username} style={{top: "0", width: "200px", position: "initial", transform: "initial"}}/>
-            <GridListTile key={user.owner.id} style={this.state.selected ? (this.state.selectedUser.owner.username === user.owner.username ? {borderStyle: "solid", borderColor: "green"} : {borderStyle: "none", borderColor: "none"}) : {borderStyle: "none", borderColor: "none"}}>
+            <GridListTile key={user.owner.id} style={this.state.selected ? (this.state.selectedUser.owner.id === user.owner.id ? {borderStyle: "solid", borderColor: "green"} : {borderStyle: "none", borderColor: "none"}) : {borderStyle: "none", borderColor: "none"}}>
               <img src="images/peter.png" alt={user.owner.username} style={{top: "0", width: "200px", position: "initial", transform: "initial"}}/>
               <GridListTileBar
                 title={user.owner.username}
@@ -128,7 +128,7 @@ class UserGridList extends React.Component {
                 actionIcon={
                   <div>
                     <Tooltip title="Show Chart" placement="top" leaveDelay={200} classes={{ tooltip: classes.biggerTooltip }}>
-                      <IconButton aria-label="Show" style={this.state.selected ? (this.state.selectedUser.owner.username === user.owner.username ? {color: "green"} : {color: "white"}) : {color: "white"}} onClick={this.handleSelectElememt.bind(this, user)}>
+                      <IconButton aria-label="Show" style={this.state.selected ? (this.state.selectedUser.owner.id === user.owner.id ? {color: "green"} : {color: "white"}) : {color: "white"}} onClick={this.handleSelectElememt.bind(this, user)}>
                           <Timeline/>
                       </IconButton>
                     </Tooltip>
