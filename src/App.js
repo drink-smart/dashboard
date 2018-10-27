@@ -147,9 +147,18 @@ class Dashboard extends React.Component {
     this.getData();
   }
 
+  componentDidMount = () => {
+    setInterval(() => this.getData(), 3000);
+  };
+
   getData = () => {
     axios.get(API_URL)
-      .then(response => console.log(response));
+      .then(response => {
+        const data = response.data._embedded.bottles;
+        console.log(data);
+        // this.setState({userData: userData});
+        this.setState({userData: data});
+      });
   };
 
   handleDrawerOpen = () => {
@@ -161,7 +170,7 @@ class Dashboard extends React.Component {
   };
   
   handleSelectCharts = (data) => {
-    console.log(data);
+    // console.log(data);
     // let drinks = [];
     // let total = 0.0;
     // data.drinks.map(drink => {
@@ -247,7 +256,7 @@ class Dashboard extends React.Component {
               <UserConsumptionCard name="Lois Griffin" image="images/lois.png" age="45"/>
             </div> */}
             <div>
-              <UserGridList handleClick={this.handleSelectCharts} data={userData}/>
+              <UserGridList handleClick={this.handleSelectCharts} data={this.state.userData}/>
             </div>
           </main>
         </div>

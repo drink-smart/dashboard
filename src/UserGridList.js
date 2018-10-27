@@ -21,7 +21,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
-    // width: 500,
+    width: "100%",
     // height: 450,
   },
   icon: {
@@ -31,9 +31,6 @@ const styles = theme => ({
     fontSize: 18,
   },
 });
-
-
-
 
 /**
  * The example data is structured as follows:
@@ -57,6 +54,21 @@ class UserGridList extends React.Component {
     selected: false,
     selectedUser: {},
   };
+
+  componentDidMount = () => {
+    setInterval(() => this.refreshUI(), 500);
+  };
+
+  refreshUI() {
+    if(this.state.selected) {
+      this.props.data.map(user => {
+        if(this.state.selectedUser.owner.id === user.owner.id) {
+          console.log("UPDATE Values")
+          this.handleSelectElememt(user);
+        }
+      });
+    }
+  }
   
   handleSelectElememt(e) {
     console.log(e);
@@ -75,13 +87,13 @@ class UserGridList extends React.Component {
 
   getSatisfiedState() {
     const user = this.state.selectedUser;
-    const total = user.drinks[user.drinks.length-1].total;
+    const aggregate = user.drinks[user.drinks.length-1].aggregate;
     return (
       <IconButton aria-label="Status"onClick={this.handleSelectStatus}>
-          {total>=2000 && <SentimentVerySatisfied style={{color: "green"}}/>} 
-          {total>=1500 && total<2000 && <SentimentSatisfied style={{color: "yellow"}}/>} 
-          {total>=1000 && total<1500 && <SentimentDissatisfied style={{color: "orange"}}/>} 
-          {total<1000 && <SentimentVeryDissatisfied style={{color: "red"}}/>}
+          {aggregate>=2000 && <SentimentVerySatisfied style={{color: "green"}}/>} 
+          {aggregate>=1500 && aggregate<2000 && <SentimentSatisfied style={{color: "yellow"}}/>} 
+          {aggregate>=1000 && aggregate<1500 && <SentimentDissatisfied style={{color: "orange"}}/>} 
+          {aggregate<1000 && <SentimentVeryDissatisfied style={{color: "red"}}/>}
       </IconButton>
     );
   }
@@ -106,8 +118,10 @@ class UserGridList extends React.Component {
             <ListSubheader component="div">People</ListSubheader>
           </GridListTile>
           {this.props.data.map(user => (
-            <GridListTile key={user.owner.img} style={this.state.selected ? (this.state.selectedUser.owner.username === user.owner.username ? {borderStyle: "solid", borderColor: "green"} : {borderStyle: "none", borderColor: "none"}) : {borderStyle: "none", borderColor: "none"}}>
-              <img src={user.owner.img} alt={user.owner.username} style={{top: "0", width: "200px", position: "initial", transform: "initial"}}/>
+            // <GridListTile key={user.owner.id} style={this.state.selected ? (this.state.selectedUser.owner.username === user.owner.username ? {borderStyle: "solid", borderColor: "green"} : {borderStyle: "none", borderColor: "none"}) : {borderStyle: "none", borderColor: "none"}}>
+            //   <img src={user.owner.img} alt={user.owner.username} style={{top: "0", width: "200px", position: "initial", transform: "initial"}}/>
+            <GridListTile key={user.owner.id} style={this.state.selected ? (this.state.selectedUser.owner.username === user.owner.username ? {borderStyle: "solid", borderColor: "green"} : {borderStyle: "none", borderColor: "none"}) : {borderStyle: "none", borderColor: "none"}}>
+              <img src="images/peter.png" alt={user.owner.username} style={{top: "0", width: "200px", position: "initial", transform: "initial"}}/>
               <GridListTileBar
                 title={user.owner.username}
                 subtitle={<span>Age: {user.owner.age}</span>}
@@ -128,12 +142,12 @@ class UserGridList extends React.Component {
                         <SentimentVeryDissatisfied style={{color: "red"}}/>
                     </IconButton> */}
                     {/* {this.state.selected ? this.getSatisfiedState.bind(this, user) : <div></div>} */}
-                    <Tooltip title={user.drinks[user.drinks.length-1].total/1000+"L"} placement="top" leaveDelay={200} classes={{ tooltip: classes.biggerTooltip }}>
+                    <Tooltip title={user.drinks[user.drinks.length-1].aggregate/1000+"L"} placement="top" leaveDelay={200} classes={{ tooltip: classes.biggerTooltip }}>
                       <IconButton aria-label="Status" onClick={this.handleSelectStatus}>
-                        {user.drinks[user.drinks.length-1].total>=2000 && <SentimentVerySatisfied style={{color: "green"}}/>} 
-                        {user.drinks[user.drinks.length-1].total>=1500 && user.drinks[user.drinks.length-1].total<2000 && <SentimentSatisfied style={{color: "yellow"}}/>} 
-                        {user.drinks[user.drinks.length-1].total>=1000 && user.drinks[user.drinks.length-1].total<1500 && <SentimentDissatisfied style={{color: "orange"}}/>} 
-                        {user.drinks[user.drinks.length-1].total<1000 && <SentimentVeryDissatisfied style={{color: "red"}}/>}
+                        {user.drinks[user.drinks.length-1].aggregate>=2000 && <SentimentVerySatisfied style={{color: "green"}}/>} 
+                        {user.drinks[user.drinks.length-1].aggregate>=1500 && user.drinks[user.drinks.length-1].aggregate<2000 && <SentimentSatisfied style={{color: "yellow"}}/>} 
+                        {user.drinks[user.drinks.length-1].aggregate>=1000 && user.drinks[user.drinks.length-1].aggregate<1500 && <SentimentDissatisfied style={{color: "orange"}}/>} 
+                        {user.drinks[user.drinks.length-1].aggregate<1000 && <SentimentVeryDissatisfied style={{color: "red"}}/>}
                       </IconButton>
                     </Tooltip>
                   </div>

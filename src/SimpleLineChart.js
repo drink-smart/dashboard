@@ -54,7 +54,7 @@ class SimpleLineChart extends React.Component {
           <ReferenceLine y={2000} label="Goal" stroke="green" strokeDasharray="3 3" />
           {/* <Line type="monotone" dataKey="Yesterday" stroke="#82ca9d" /> */}
           <Area type="monotone" dataKey="volume" stroke="#8884d8" fill="#8884d8" activeDot={{ r: 8 }} />
-          <Bar dataKey="total" barSize={20} fill="#82ca9d" />
+          <Bar dataKey="aggregate" barSize={20} fill="#82ca9d" />
         </ComposedChart>
       </ResponsiveContainer>
     );
