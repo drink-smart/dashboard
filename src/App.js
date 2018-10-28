@@ -211,7 +211,7 @@ class Dashboard extends React.Component {
                 noWrap
                 className={classes.title}
               >
-                Dashboard
+                Robert-Bosch-Krankenhaus: Kardiologie, Station 4
               </Typography>
               <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
