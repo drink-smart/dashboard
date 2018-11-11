@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Timeline from '@material-ui/icons/Timeline';
 import AccessTime from '@material-ui/icons/AccessTime';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import { SentimentVerySatisfied, SentimentSatisfied, SentimentDissatisfied, SentimentVeryDissatisfied } from '@material-ui/icons/';
 // import tileData from './tileData';
 
@@ -150,6 +151,15 @@ class UserGridList extends React.Component {
                         {user.drinks[user.drinks.length-1].aggregate<1000 && <SentimentVeryDissatisfied style={{color: "red"}}/>}
                       </IconButton>
                     </Tooltip>
+                    {
+                      user.refills && user.refills.length > 0 &&
+                      <Tooltip title={user.refills.reduce((total, fill) => { return total + fill.volume; }, 0)/1000+"L | "+user.refills.reduce((total, fill) => { return total + fill.price; }, 0)+user.refills[0].currency} placement="top" leaveDelay={200} classes={{ tooltip: classes.biggerTooltip }}>
+                          <IconButton aria-label="Refills" style={{color: "white"}} >
+                            <ShoppingCart />
+                            {user.refills.length} Refills 
+                        </IconButton>
+                      </Tooltip>
+                    }
                   </div>
                 }
               />

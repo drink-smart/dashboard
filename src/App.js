@@ -146,9 +146,11 @@ class Dashboard extends React.Component {
     };
     this.getData();
   }
-
+  
   componentDidMount = () => {
     setInterval(() => this.getData(), 3000);
+    // MOCK DATA
+    // this.setState({userData: userData});
   };
 
   getData = () => {
@@ -156,9 +158,8 @@ class Dashboard extends React.Component {
       .then(response => {
         const data = response.data._embedded.bottles;
         console.log(data);
-        // this.setState({userData: userData});
         this.setState({userData: data});
-      });
+    });
   };
 
   handleDrawerOpen = () => {
