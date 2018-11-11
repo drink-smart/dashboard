@@ -112,6 +112,8 @@ class UserGridList extends React.Component {
   render() {
     const { classes } = this.props;
 
+    const images = ["images/peter.png", "images/brian.png", "images/chris.png", "images/lois.png", "images/meg.png", "images/stewie.png"]
+
     return (
       <div className={classes.root}>
         <GridList cellHeight={180} className={classes.gridList}>
@@ -122,7 +124,7 @@ class UserGridList extends React.Component {
             // <GridListTile key={user.owner.id} style={this.state.selected ? (this.state.selectedUser.owner.username === user.owner.username ? {borderStyle: "solid", borderColor: "green"} : {borderStyle: "none", borderColor: "none"}) : {borderStyle: "none", borderColor: "none"}}>
             //   <img src={user.owner.img} alt={user.owner.username} style={{top: "0", width: "200px", position: "initial", transform: "initial"}}/>
             <GridListTile key={user.owner.id} style={this.state.selected ? (this.state.selectedUser.owner.id === user.owner.id ? {borderStyle: "solid", borderColor: "green"} : {borderStyle: "none", borderColor: "none"}) : {borderStyle: "none", borderColor: "none"}}>
-              <img src="images/peter.png" alt={user.owner.username} style={{top: "0", width: "200px", position: "initial", transform: "initial"}}/>
+              <img src={images[this.props.data.indexOf(user)]} alt={user.owner.username} style={{top: "0", width: "200px", position: "initial", transform: "initial"}}/>
               <GridListTileBar
                 title={user.owner.username}
                 subtitle={<span>Age: {user.owner.age}</span>}
