@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="public/bottle.png">
+  <img src="ds.png">
 </p>
 
-# DrinkSmart - The Dashboard
+# The Dashboard
 
 This dashboard shows all the connected DrinkSmart bottles und displays their corresponding consumption.
 
